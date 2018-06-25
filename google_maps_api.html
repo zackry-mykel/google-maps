@@ -30,12 +30,16 @@
         var mapCanvas = document.getElementById('map-canvas');
         // Must have map configuration of zoom and location.
         var mapOptions = {
-            zoom: 20,
+            zoom: 10,
             center: {
                 lat: 29.4958247,
                 lng: -98.5352398
             }
+
         };
+
+
+
         var map = new google.maps.Map(mapCanvas, mapOptions);
         var geo = new google.maps.Geocoder();
 
@@ -53,50 +57,68 @@
             else {
                 console.log("Invalid Address.")
             }
-
-
-
-
+            
         });
 
+                // Marker
+
+                var image = {
+                    url: "la-fogata.png",
+                    scaledSize: new google.maps.Size(50, 40),
+                    origin: new google.maps.Point(0,0), // origin
+                    anchor: new google.maps.Point(0, 0) // anchor
+                };
+
+                var marker = new google.maps.Marker({
+                    position: {
+                        lat: 29.4958247,
+                        lng: -98.5352398
+                    },
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    icon : image
+                });
+
+                //Info Window
+                var contentString = '<h1>La Fogata</h1>' + '<p>Things I Recommend:</p>' +
+
+                    '<ul>' +
+                    '<li>Margarita</li>' +
+                    '<li>Tortillas</li> ' +
+                    '</ul>'
+                    + '<p>Check out the menu <a href="http://www.lafogata.com/la-fogata-menu" target="_blank">here</a></p>'
+
+                    + '<p>Phone: 210.340.1337</p>';
+
+                var infoWindow = new google.maps.InfoWindow({
+                    content: contentString
+
+                });
 
 
-        // Marker
-
-        var marker = new google.maps.Marker({
-            position: {
-                lat: 29.4958247,
-                lng: -98.5352398
-            },
-            map: map
-        });
+        // Marker bounce animation
 
 
-        //Info Window
-        var contentString = '<h1>La Fogata</h1>' + '<p>Things I Recommend:</p>' +
+        function toggleBounce() {
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
 
-            '<ul>' +
-            '<li>Margarita</li>' +
-            '<li>Tortillas</li> ' +
-            '</ul>'
-                + '<p>Check out the menu <a href="http://www.lafogata.com/la-fogata-menu" target="_blank">here</a></p>'
 
-            + '<p>Phone: 210.340.1337</p>';
 
-        var infoWindow = new google.maps.InfoWindow({
-            content: contentString
-
-        });
-
-        infoWindow.open(map, marker);
 
 
         // Event Listener
 
-        map.addListener("dragend", function () {
+        marker.addListener("click", function () {
+            map.setZoom(19);
+            map.setCenter(marker.getPosition());
             infoWindow.open(map, marker);
         });
-
+        marker.addListener('click', toggleBounce);
     }
 
 
