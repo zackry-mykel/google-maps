@@ -9,5 +9,29 @@
 </head>
 <body>
 
+
+
+    <script>
+
+        geo.geocode({address: "La Fogata"}, function (response, status) {
+            if (status === "OK") {
+                console.log(response[0].geometry.location.lat());
+                console.log(response[0].geometry.location.lng());
+
+                map.setCenter(response[0].geometry.location);
+            }
+            else {
+                console.log("Invalid Address.")
+            }
+
+
+
+
+        });
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxIPbNd4ljI6NdSyP5ugk4XoKDzw2VEZM&callback=initMap" async defer></script>
+
 </body>
 </html>
