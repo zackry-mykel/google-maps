@@ -75,6 +75,7 @@
         };
 
 
+
         var map = new google.maps.Map(mapCanvas, mapOptions);
         var geo = new google.maps.Geocoder();
 
@@ -95,38 +96,148 @@
         });
 
                 // Marker
-                var image = {
-                    url: "la-fogata.png",
-                    scaledSize: new google.maps.Size(50, 40),
-                    origin: new google.maps.Point(0,0), // origin
-                    anchor: new google.maps.Point(0, 0) // anchor
-                };
 
-                var marker = new google.maps.Marker({
-                    position: {
+                var locations =[
+                     images = [image = {
+                        url: "la-fogata.png",
+                        scaledSize: new google.maps.Size(50, 40)
+                    }, image2 = {
+                        url: "whatburger32px.png"
+                    }, image3 = {
+                        url: "billmiller32px.png"
+                    }],
+
+
+                     locations = [lafogata = {
                         lat: 29.4958247,
                         lng: -98.5352398
+                    }, whataburger = {
+                         lat: 29.46,
+                         lng: -98.53
+                     }, billmiller = {
+                        lat:29.467,
+                         lng: -98.536
+                     }
+                    ],
+
+                    infowindow = [contentString =
+                        '<h1>La Fogata</h1>' +
+                        '<p>Things I Recommend:</p>' +
+                        '<ul>' +
+                        '<li>Margarita</li>' +
+                        '<li>Tortillas</li> ' +
+                        '</ul>' +
+                        '<p>Check out the menu <a href="http://www.lafogata.com/la-fogata-menu" target="_blank">here</a></p>' +
+                        '<p>Phone: 210.340.1337</p>',
+                        contentString2 =
+                            '<h1>Whataburger</h1>',
+                        contentString3 =
+                            '<h1>Bill Miller\'s'
+                    ]
+
+
+
+                    ];
+
+                    var resturants = [
+                        {
+                            name: "la fogata",
+                            location: {
+                                lat: 29.4958247,
+                                lng: -98.5352398
+                            },
+                            content: '<h1>La Fogata</h1>' +
+                                '<p>Things I Recommend:</p>' +
+                                '<ul>' +
+                                '<li>Margarita</li>' +
+                                '<li>Tortillas</li> ' +
+                                '</ul>' +
+                                '<p>Check out the menu <a href="http://www.lafogata.com/la-fogata-menu" target="_blank">here</a></p>' +
+                                '<p>Phone: 210.340.1337</p>',
+                            images: {
+                                url: "la-fogata.png",
+                                scaledSize: new google.maps.Size(50, 40)
+                            }
+                        },
+                            ];
+
+
+
+                resturants.forEach(function (resturant) {
+                    // new google.maps.Marker({
+                    //         position: {
+                    //             lat: 29.4958247,
+                    //             lng: -98.5352398
+                    //         },
+                    //         map: map,
+                    //         animation: google.maps.Animation.DROP,
+                    //         icon : image
+                    //     });
+                    console.log(resturant)
+                });
+
+
+
+
+                // var image = {
+                //     url: "la-fogata.png",
+                //     scaledSize: new google.maps.Size(50, 40),
+                //     origin: new google.maps.Point(0,0), // origin
+                //     anchor: new google.maps.Point(0, 0) // anchor
+                // };
+
+
+
+
+             /*   var markers = locations.map(function (location, i) {
+                   return new google.maps.Marker({
+                       position: location,
+                       image: images[i % images.length]
+                   })
+                });*/
+
+
+                // var marker = new google.maps.Marker({
+                //     position: {
+                //         lat: 29.4958247,
+                //         lng: -98.5352398
+                //     },
+                //     map: map,
+                //     animation: google.maps.Animation.DROP,
+                //     icon : image
+                // });
+
+
+
+
+/*
+
+                var marker2 = new google.maps.Marker({
+                    position: {
+                        lat: 28.4,
+                        lng: -98.5
                     },
-                    map: map,
+                   map: map,
                     animation: google.maps.Animation.DROP,
                     icon : image
                 });
+*/
 
                 //Info Window
-                var contentString = '<h1>La Fogata</h1>' + '<p>Things I Recommend:</p>' +
-
-                    '<ul>' +
-                    '<li>Margarita</li>' +
-                    '<li>Tortillas</li> ' +
-                    '</ul>'
-                    + '<p>Check out the menu <a href="http://www.lafogata.com/la-fogata-menu" target="_blank">here</a></p>'
-
-                    + '<p>Phone: 210.340.1337</p>';
-
-                var infoWindow = new google.maps.InfoWindow({
-                    content: contentString
-
-                });
+                // var contentString = '<h1>La Fogata</h1>' + '<p>Things I Recommend:</p>' +
+                //
+                //     '<ul>' +
+                //     '<li>Margarita</li>' +
+                //     '<li>Tortillas</li> ' +
+                //     '</ul>'
+                //     + '<p>Check out the menu <a href="http://www.lafogata.com/la-fogata-menu" target="_blank">here</a></p>'
+                //
+                //     + '<p>Phone: 210.340.1337</p>';
+                //
+                // var infoWindow = new google.maps.InfoWindow({
+                //     content: contentString
+                //
+                // });
 
 
         // Marker bounce animation
@@ -161,6 +272,13 @@
         });
         marker.addListener('click', toggleBounce);
         map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+    /*    marker2.addListener("click", function () {
+            map.setZoom(19);
+            map.setCenter(marker2.getPosition());
+            infoWindow.open(map, marker);
+        });
+*/
     }
 
 
