@@ -73,9 +73,19 @@
 
 
         //Info Window
+        var contentString = '<h1>La Fogata</h1>' + '<p>Things I Recommend:</p>' +
+
+            '<ul>' +
+            '<li>Margarita</li>' +
+            '<li>Tortillas</li> ' +
+            '</ul>'
+                + '<p>Check out the menu <a href="http://www.lafogata.com/la-fogata-menu" target="_blank">here</a></p>'
+
+            + '<p>Phone: 210.340.1337</p>';
 
         var infoWindow = new google.maps.InfoWindow({
-            content: "La Fogata"
+            content: contentString
+
         });
 
         infoWindow.open(map, marker);
