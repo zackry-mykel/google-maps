@@ -208,11 +208,21 @@
                             //     lat: 29.423796,
                             //     lng: -98.488625
                             // },
+                            // animation: google.maps.Animation.BOUNCE,
+                            animation: google.maps.Animation.DROP,
                             position: new google.maps.LatLng(resturants[i].location.lat, resturants[i].location.lng),
                             map: map,
                             icon: resturants[i].images,
                         });
                         console.log(resturant.location);
+
+                        marker.addListener("click", function () {
+                            map.setZoom(19);
+                            map.setCenter(marker.getPosition());
+                            infoWindow.open(map, marker);
+                        });
+                        marker.addListener('click', toggleBounce);
+                        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
                     }
                 });
 
