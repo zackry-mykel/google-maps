@@ -77,67 +77,10 @@
 
 
         var map = new google.maps.Map(mapCanvas, mapOptions);
-        var geo = new google.maps.Geocoder();
 
-        // console.log(geo);
-
-
-        geo.geocode({address: "2427 Vance Jackson Rd"}, function (response, status) {
-            if (status === "OK") {
-                // console.log(response[0].geometry.location.lat());
-                // console.log(response[0].geometry.location.lng());
-
-                map.setCenter(response[0].geometry.location);
-            }
-            else {
-                console.log("Invalid Address.")
-            }
-            
-        });
-
-                // Marker
-
-                // var locations =[
-                //      images = [image = {
-                //         url: "la-fogata.png",
-                //         scaledSize: new google.maps.Size(50, 40)
-                //     }, image2 = {
-                //         url: "whatburger32px.png"
-                //     }, image3 = {
-                //         url: "billmiller32px.png"
-                //     }],
+                // Array Set
 
 
-                    //  locations = [lafogata = {
-                    //     lat: 29.4958247,
-                    //     lng: -98.5352398
-                    // }, whataburger = {
-                    //      lat: 29.46,
-                    //      lng: -98.53
-                    //  }, billmiller = {
-                    //     lat:29.467,
-                    //      lng: -98.536
-                    //  }
-                    // ],
-
-                    // infowindow = [contentString =
-                    //     '<h1>La Fogata</h1>' +
-                    //     '<p>Things I Recommend:</p>' +
-                    //     '<ul>' +
-                    //     '<li>Margarita</li>' +
-                    //     '<li>Tortillas</li> ' +
-                    //     '</ul>' +
-                    //     '<p>Check out the menu <a href="http://www.lafogata.com/la-fogata-menu" target="_blank">here</a></p>' +
-                    //     '<p>Phone: 210.340.1337</p>',
-                    //     contentString2 =
-                    //         '<h1>Whataburger</h1>',
-                    //     contentString3 =
-                    //         '<h1>Bill Miller\'s'
-                    // ]
-
-
-
-                    // ];
 
                     var resturants = [
                         {
@@ -196,7 +139,7 @@
                                 url: "whatburger.png",
                                 scaledSize: new google.maps.Size(50, 50)
                             }
-                        },
+                        }
                             ];
 
 
@@ -204,92 +147,33 @@
                 resturants.forEach(function (resturant, index) {
                     for (var i = 0; i < resturants.length; i++) {
                         var marker = new google.maps.Marker({
-                            // position: {
-                            //     lat: 29.423796,
-                            //     lng: -98.488625
-                            // },
-                            // animation: google.maps.Animation.BOUNCE,
+                            animation: google.maps.Animation.BOUNCE,
                             animation: google.maps.Animation.DROP,
                             position: new google.maps.LatLng(resturants[i].location.lat, resturants[i].location.lng),
                             map: map,
                             icon: resturants[i].images,
+                            content: resturants[i].content
+
+
                         });
-                        console.log(resturant.location);
+                        var information = new google.maps.InfoWindow({
+                            content: resturants[i].content
+                        });
+                         }
+                        marker.addListener("click", function () {
+                            map.setZoom(19);
+                            map.setCenter(marker.getPosition());
+                            information.open(map, marker);
+                            marker.addListener('click', toggleBounce);
+                        });
 
                         marker.addListener("click", function () {
                             map.setZoom(19);
                             map.setCenter(marker.getPosition());
-                            infoWindow.open(map, marker);
+                            information.open(map, marker);
                         });
-                        marker.addListener('click', toggleBounce);
-                        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
-                    }
+
                 });
-
-
-
-                //
-                // var image = {
-                //     url: "la-fogata.png",
-                //     scaledSize: new google.maps.Size(50, 40),
-                //     origin: new google.maps.Point(0,0), // origin
-                //     anchor: new google.maps.Point(0, 0) // anchor
-                // };
-
-
-
-
-             /*   var markers = locations.map(function (location, i) {
-                   return new google.maps.Marker({
-                       position: location,
-                       image: images[i % images.length]
-                   })
-                });*/
-
-
-                // var marker = new google.maps.Marker({
-                //     position: {
-                //         lat: 29.4958247,
-                //         lng: -98.5352398
-                //     },
-                //     map: map,
-                //     animation: google.maps.Animation.DROP,
-                //     icon : image
-                // });
-
-
-
-
-/*
-
-                var marker2 = new google.maps.Marker({
-                    position: {
-                        lat: 28.4,
-                        lng: -98.5
-                    },
-                   map: map,
-                    animation: google.maps.Animation.DROP,
-                    icon : image
-                });
-*/
-
-                //Info Window
-                // var contentString = '<h1>La Fogata</h1>' + '<p>Things I Recommend:</p>' +
-                //
-                //     '<ul>' +
-                //     '<li>Margarita</li>' +
-                //     '<li>Tortillas</li> ' +
-                //     '</ul>'
-                //     + '<p>Check out the menu <a href="http://www.lafogata.com/la-fogata-menu" target="_blank">here</a></p>'
-                //
-                //     + '<p>Phone: 210.340.1337</p>';
-                //
-                // var infoWindow = new google.maps.InfoWindow({
-                //     content: contentString
-                //
-                // });
-
-
         // Marker bounce animation
         function toggleBounce() {
             if (marker.getAnimation() !== null) {
@@ -312,21 +196,10 @@
         }
 
         // Event Listener
-        //
-        // marker.addListener("click", function () {
-        //     map.setZoom(19);
-        //     map.setCenter(marker.getPosition());
-        //     infoWindow.open(map, marker);
-        // });
-        // marker.addListener('click', toggleBounce);
-        // map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 
-    /*    marker2.addListener("click", function () {
-            map.setZoom(19);
-            map.setCenter(marker2.getPosition());
-            infoWindow.open(map, marker);
-        });
-*/
+
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
     }
 
 
